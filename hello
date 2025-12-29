@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Introduction</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    overflow:hidden;
+}
+
+/* Floating background circles */
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    animation:float 8s infinite ease-in-out;
+}
+
+.circle:nth-child(1){
+    width:200px;height:200px;left:10%;top:20%;
+}
+.circle:nth-child(2){
+    width:300px;height:300px;right:10%;top:50%;
+    animation-delay:2s;
+}
+.circle:nth-child(3){
+    width:150px;height:150px;left:50%;bottom:10%;
+    animation-delay:4s;
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-30px);}
+    100%{transform:translateY(0px);}
+}
+
+/* Main container */
+.container{
+    position:relative;
+    z-index:10;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    padding:40px;
+    border-radius:20px;
+    max-width:450px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+    animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+h1{
+    font-size:2.2rem;
+    margin-bottom:10px;
+}
+
+.typing{
+    color:#00f5ff;
+    font-weight:600;
+}
+
+p{
+    font-size:0.95rem;
+    opacity:0.9;
+    margin:15px 0 30px;
+}
+
+/* Buttons */
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+button{
+    padding:12px 24px;
+    border:none;
+    outline:none;
+    border-radius:30px;
+    background:#00f5ff;
+    color:#000;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+button::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:white;
+    opacity:0;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,245,255,0.5);
+}
+
+button:hover::after{
+    opacity:0.15;
+}
+
+button.secondary{
+    background:transparent;
+    color:white;
+    border:2px solid #00f5ff;
+}
+
+.socials{
+    margin-top:25px;
+}
+
+.socials a{
+    text-decoration:none;
+    color:#00f5ff;
+    margin:0 10px;
+    font-size:1.2rem;
+    transition:0.3s;
+}
+
+.socials a:hover{
+    color:white;
+}
+</style>
+</head>
+<body>
+
+<!-- Background effects -->
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="container">
+    <div class="card">
+        <h1>Hi, I'm <span class="typing"></span></h1>
+        <p>
+            A passionate student exploring Web Development, Programming,
+            and Technology. I love building interactive and clean user experiences.
+        </p>
+
+        <div class="buttons">
+            <button onclick="alert('Thanks for visiting! 😊')">Explore</button>
+            <button class="secondary">Contact</button>
+        </div>
+
+        <div class="socials">
+            <a href="#">GitHub</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Twitter</a>
+        </div>
+    </div>
+</div>
+
+<script>
+/* Typing animation */
+const text = ["Aditya", "a Developer", "a Learner"];
+let index = 0;
+let char = 0;
+let current = "";
+let isDeleting = false;
+
+function typeEffect(){
+    if(!isDeleting && char <= text[index].length){
+        current = text[index].substring(0,char++);
+    }
+    if(isDeleting && char >= 0){
+        current = text[index].substring(0,char--);
+    }
+
+    document.querySelector(".typing").textContent = current;
+
+    if(char === text[index].length){
+        isDeleting = true;
+        setTimeout(typeEffect,1000);
+        return;
+    }
+
+    if(isDeleting && char === 0){
+        isDeleting = false;
+        index = (index + 1) % text.length;
+    }
+
+    setTimeout(typeEffect, isDeleting ? 60 : 120);
+}
+
+typeEffect();
+</script>
+
+</body>
+</html>
